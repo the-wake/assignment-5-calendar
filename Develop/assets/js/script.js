@@ -44,7 +44,6 @@ function applyClass(i) {
             hours[i].classList.add("present");
         } if (hour > currentHr) {
             hours[i].classList.add("future");
-            console.log("test");
         }
     }
 };
@@ -76,3 +75,4 @@ initialize();
     // Add a button to clear all fields.
     // Add an event listener for enter keyup that runs the saveBtn script.
     // Think about how this would be done fully iteratively.
+    
