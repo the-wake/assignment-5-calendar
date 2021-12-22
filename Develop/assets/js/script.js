@@ -24,13 +24,20 @@ var storedNotes = [
     ""
 ];
 
-var saveBtn = $('.saveBtn');
+var saveBtn = $(".saveBtn");
 
 var startHr = 9;
 var endHr = 18;
 var hrsLength = (endHr-startHr);
 
 var currentHr = parseInt((moment().format("H")));
+
+function setTime() {
+    // Sets the variables for time and populates the page.
+    var dayTime = moment().format("ddd, MMMM DD, YYYY - hh:mm a");
+    var timestamp = document.getElementById("currentDay");
+    timestamp.textContent=(dayTime);
+};
 
 function applyClass(i) {
     for (var i = 0; i < hours.length; i++) {
@@ -56,6 +63,10 @@ saveBtn.on('click', function(i) {
 });
 
 function initialize(i) {
+    // Calls the setTime and applyClass functions on page load.
+    setTime();
+    applyClass();
+    // Populate text areas from local storage.
     if(localStorage.getItem("agendaItems")) {
         for (var i = 0; i < hours.length; i++) {
             // First, run script pulling data from local storage to global variable.
@@ -68,11 +79,13 @@ function initialize(i) {
     }
 };
 
-applyClass();
+// Creates a 1-per-second interval for updating the display time and dynamically applying formatting classes.
+setInterval(setTime, 1000);
+setInterval(applyClass, 1000);
+
 initialize();
 
 // Stretch goals
     // Add a button to clear all fields.
     // Add an event listener for enter keyup that runs the saveBtn script.
     // Think about how this would be done fully iteratively.
-    
