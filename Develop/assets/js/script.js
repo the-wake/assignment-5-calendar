@@ -30,8 +30,6 @@ var startHr = 9;
 var endHr = 18;
 var hrsLength = (endHr-startHr);
 
-var currentHr = parseInt((moment().format("H")));
-
 function setTime() {
     // Sets the variables for time and populates the page.
     var dayTime = moment().format("ddd, MMMM DD, YYYY - hh:mm a");
@@ -40,19 +38,33 @@ function setTime() {
 };
 
 function applyClass(i) {
+    // console.log("Tick");
     for (var i = 0; i < hours.length; i++) {
+        // We define currentHr locally since no other function calls it, and it needs to be redefined each time this function is called by the applyClass interval.
+        // console.log(hours[i].getAttribute("data-hour"));
+        var currentHr = parseInt((moment().format("H")));
         // I set a data tag on each textArea with the hour, and compare that to the current hour to set the style.
-        var hour = parseInt(hours[i].getAttribute("data-hour"));
-        console.log(hours[i].getAttribute("data-hour"));
-        console.log(currentHr);
-        if (hour < currentHr) {
-            hours[i].classList.add("past");
-        } if (hour == currentHr) {
-            hours[i].classList.add("present");
-        } if (hour > currentHr) {
-            hours[i].classList.add("future");
-        }
-    }
+        var hourParse = parseInt(hours[i].getAttribute("data-hour"));
+        // Then we run three loops to remove all time classes and add the appropriate one ONLY IF it doesn't already have that class (just to remove unnecessarily running the function.)
+        if (hourParse < currentHr && hours[i].classList.contains("past") === false) {
+            hours[i].classList.remove("present");
+            hours[i].classList.remove("future");
+            hours[i].classList.add("past")
+            console.log("Operated Past")
+        };
+        if (hourParse == currentHr && hours[i].classList.contains("present") === false) {
+            hours[i].classList.remove("past");
+            hours[i].classList.remove("future");
+            hours[i].classList.add("present")
+            console.log("Operated Present");
+        };
+        if (hourParse > currentHr && hours[i].classList.contains("future") === false) {
+                hours[i].classList.remove("past");
+                hours[i].classList.remove("present");
+                hours[i].classList.add("future");
+                console.log("Operated Future");
+        };
+    };
 };
 
 saveBtn.on('click', function(i) {
