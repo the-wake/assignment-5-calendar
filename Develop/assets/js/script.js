@@ -49,22 +49,22 @@ function applyClass(i) {
         if (hourParse < currentHr && hours[i].classList.contains("past") === false) {
             hours[i].classList.remove("present");
             hours[i].classList.remove("future");
-            hours[i].classList.add("past")
-            console.log("Operated Past")
-        };
+            hours[i].classList.add("past");
+            console.log("Operated Past on hours[" + [i] + "].");
+        }
         if (hourParse == currentHr && hours[i].classList.contains("present") === false) {
             hours[i].classList.remove("past");
             hours[i].classList.remove("future");
-            hours[i].classList.add("present")
-            console.log("Operated Present");
-        };
+            hours[i].classList.add("present");
+            console.log("Operated Present on hours[" + [i] + "].");
+        }
         if (hourParse > currentHr && hours[i].classList.contains("future") === false) {
-                hours[i].classList.remove("past");
-                hours[i].classList.remove("present");
-                hours[i].classList.add("future");
-                console.log("Operated Future");
-        };
-    };
+            hours[i].classList.remove("past");
+            hours[i].classList.remove("present");
+            hours[i].classList.add("future");
+            console.log("Operated Future on hours[" + [i] + "].");
+        }
+    }
 };
 
 saveBtn.on('click', function(i) {
@@ -79,7 +79,7 @@ function initialize(i) {
     setTime();
     applyClass();
     // Populate text areas from local storage.
-    if(localStorage.getItem("agendaItems")) {
+    if (localStorage.getItem("agendaItems")) {
         for (var i = 0; i < hours.length; i++) {
             // First, run script pulling data from local storage to global variable.
             storedNotes[i] = JSON.parse(localStorage.getItem("agendaItems"))[i];
